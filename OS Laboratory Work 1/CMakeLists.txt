@@ -1,12 +1,32 @@
-﻿# CMakeList.txt: проект CMake для OS Laboratory Work 1.cpp; включите исходный код и определения,
+﻿# CMakeList.txt: проект CMake для Lab OS 01 KD; включите исходный код и определения,
 # укажите здесь логику для конкретного проекта.
 #
 
-# Добавьте источник в исполняемый файл этого проекта.
-add_executable (CMakeTarget "Main.cpp" "employee.h" "Creator.cpp" "Reporter.cpp" "employee.cpp")
+cmake_minimum_required (VERSION 3.8)
 
+# Включение горячей перезагрузки для компиляторов MSVC, если поддерживается.
+if (POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+endif()
+
+project ("OS Laboratory Work 1.cpp")
+
+# Добавьте источник в исполняемый файл этого проекта.
+# Main
+add_executable (Main "Main.cpp" "employee.cpp" "employee.h")
+
+# Creator
+add_executable (Creator "Creator.cpp" "employee.cpp" "employee.h")
+
+# Reporter
+add_executable (Reporter "Reporter.cpp" "employee.cpp" "employee.h")
+
+# Устанавливаем стандарт C++ для всех целей, если версия CMake > 3.12
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET CMakeTarget PROPERTY CXX_STANDARD 20)
+  set_property(TARGET Main PROPERTY CXX_STANDARD 20)
+  set_property(TARGET Creator PROPERTY CXX_STANDARD 20)
+  set_property(TARGET Reporter PROPERTY CXX_STANDARD 20)
 endif()
 
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.
