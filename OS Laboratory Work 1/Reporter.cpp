@@ -1,25 +1,25 @@
-#include "employee.h"
+ï»¿#include "employee.h"
 
 int main(int argc, char* argv[]) {
-	ifstream filein(argv[1], ios::binary);
-	ofstream fileout(argv[2]);
+    ifstream filein(argv[1], ios::binary);
+    ofstream fileout(argv[2]);
 
-	if (!filein.is_open()) {
-		cout << "Binary file opening error!" << endl;
-		return 1;
-	}
+    if (!filein.is_open()) {
+        cout << "Binary file opening error!" << endl;
+        return 1;
+    }
 
-	if (!fileout.is_open()) {
-		cout << "Text file opening error!" << endl;
-		return 1;
-	}
+    if (!fileout.is_open()) {
+        cout << "Text file opening error!" << endl;
+        return 1;
+    }
 
-	employee empl;
-	int i = 1;
-	int hourlyPay = stoi(argv[3]);
+    employee empl;
+    int i = 1;
+    int hourlyPay = stoi(argv[3]);
 
-    fileout << "Îò÷åò ïî ôàéëó \"" << argv[1] << "\"\n";
-    fileout << left << setw(5) << "¹"
+    fileout << "ÃŽÃ²Ã·Ã¥Ã² Ã¯Ã® Ã´Ã Ã©Ã«Ã³ \"" << argv[1] << "\"\n";
+    fileout << left << setw(5) << "Â¹"
         << setw(20) << "Identification number"
         << setw(15) << "Name"
         << setw(10) << "Hours"
@@ -35,6 +35,6 @@ int main(int argc, char* argv[]) {
             << setw(15) << fixed << setprecision(2) << accruedSalary
             << "\n";
         i++;
-	}
-	return 0;
+    }
+    return 0;
 }

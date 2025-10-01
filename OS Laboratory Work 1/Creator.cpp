@@ -2,7 +2,7 @@
 
 int main(int argc, char* argv[]) {
 	ofstream fileout(argv[1], ios::binary);
-	
+
 	if (!fileout.is_open()) {
 		cout << "File opening error!" << endl;
 		return 1;

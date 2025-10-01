@@ -1,8 +1,4 @@
-﻿# CMakeList.txt: проект CMake для Lab OS 01 KD; включите исходный код и определения,
-# укажите здесь логику для конкретного проекта.
-#
-
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required (VERSION 3.8)
 
 # Включение горячей перезагрузки для компиляторов MSVC, если поддерживается.
 if (POLICY CMP0141)
@@ -10,23 +6,29 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("OS Laboratory Work 1.cpp")
+project ("OS_Laboratory_Work_1")
 
-# Добавьте источник в исполняемый файл этого проекта.
-# Main
-add_executable (Main "Main.cpp" "employee.cpp" "employee.h")
+function(add_exe target_name source_file extra_sources)
+    add_executable(${target_name}
+        ${source_file}
+        ${extra_sources}
+    )
+	if (CMAKE_VERSION VERSION_GREATER 3.12)
+		set_property(TARGET ${target_name} PROPERTY CXX_STANDARD 20)
+	endif()
+endfunction()
 
-# Creator
-add_executable (Creator "Creator.cpp" "employee.cpp" "employee.h")
+add_exe(Main Main.cpp employee.cpp)
+add_exe(Creator Creator.cpp employee.cpp)
+add_exe(Reporter Reporter.cpp employee.cpp)
 
-# Reporter
-add_executable (Reporter "Reporter.cpp" "employee.cpp" "employee.h")
+# Поддиректория с тестами
 
-# Устанавливаем стандарт C++ для всех целей, если версия CMake > 3.12
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET Main PROPERTY CXX_STANDARD 20)
-  set_property(TARGET Creator PROPERTY CXX_STANDARD 20)
-  set_property(TARGET Reporter PROPERTY CXX_STANDARD 20)
-endif()
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/heads/main.zip
+)
+FetchContent_MakeAvailable(googletest)
 
-# TODO: Добавьте тесты и целевые объекты, если это необходимо.
+add_subdirectory(tests)

@@ -1,9 +1,4 @@
-﻿// OS Laboratory Work 1.cpp.cpp: определяет точку входа для приложения.
-//
-
-#include "employee.h"
-
-using namespace std;
+﻿#include "employee.h"
 
 int main() {
 	string binFile;
@@ -25,8 +20,8 @@ int main() {
 	strcpy_s(cmdLine1, sizeof(cmdLine1), creatorCmd.c_str());
 
 	if (!CreateProcess(NULL, cmdLine1, NULL, NULL, FALSE, 0, NULL, NULL, &si1, &pi1)) {
-	cerr << "Error launching Creator" << endl;
-	return 1;
+		cerr << "Error launching Creator" << endl;
+		return 1;
 	}
 
 	WaitForSingleObject(pi1.hProcess, INFINITE);
@@ -35,14 +30,14 @@ int main() {
 
 	ifstream fin(binFile, ios::binary);
 	if (!fin.is_open()) {
-	cerr << "Failed to open binary file: " << binFile << endl;
-	return 1;
+		cerr << "Failed to open binary file: " << binFile << endl;
+		return 1;
 	}
 
 	cout << "\nContents of the binary file:\n";
 	employee emp{};
 	while (fin.read(reinterpret_cast<char*>(&emp), sizeof(employee))) {
-	cout << emp.num << " " << emp.name << " " << emp.hours << endl;
+		cout << emp.num << " " << emp.name << " " << emp.hours << endl;
 	}
 	fin.close();
 
@@ -65,8 +60,8 @@ int main() {
 	strcpy_s(cmdLine2, sizeof(cmdLine2), reporterCmd.c_str());
 
 	if (!CreateProcess(NULL, cmdLine2, NULL, NULL, FALSE, 0, NULL, NULL, &si2, &pi2)) {
-	cerr << "Error launching Reporter" << endl;
-	return 1;
+		cerr << "Error launching Reporter" << endl;
+		return 1;
 	}
 
 	WaitForSingleObject(pi2.hProcess, INFINITE);
@@ -75,14 +70,14 @@ int main() {
 
 	ifstream fout(reportFile);
 	if (!fout.is_open()) {
-	cerr << "Failed to open report file: " << reportFile << endl;
-	return 1;
+		cerr << "Failed to open report file: " << reportFile << endl;
+		return 1;
 	}
 
 	cout << "\nContents of the report:\n";
 	string line;
 	while (getline(fout, line)) {
-	cout << line << endl;
+		cout << line << endl;
 	}
 	fout.close();
 
