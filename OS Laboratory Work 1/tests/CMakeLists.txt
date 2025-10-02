@@ -5,7 +5,7 @@ function(add_lab_test target_name source_file extra_sources)
     add_executable(${target_name}
         ${source_file}
         ${extra_sources}
-    )
+     "header.h")
     target_include_directories(${target_name} PRIVATE ${CMAKE_SOURCE_DIR})
     target_link_libraries(${target_name} PRIVATE gtest_main)
     set_property(TARGET ${target_name} PROPERTY CXX_STANDARD 20)
